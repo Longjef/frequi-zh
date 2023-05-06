@@ -59,28 +59,14 @@ jobs:
     - name: Build build
       run: yarn build
 
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v3
-      # Ideally this would upload the zipfile from below - but this action currently does not support this.
-      with:
-        name: freqUI
-        path: |
-          dist
-          !dist/**/*.map
-        retention-days: 10
-
-    - name: Zip files for release
-      if: github.event_name == 'release' && matrix.node == '18'
+    - name: Commit files
       run: |
-        cd dist/
-        zip -r ../freqUI.zip .
-        cd ../
-
-
-    - name: Upload release binaries
-      uses: alexellis/upload-assets@0.4.0
-      if: github.event_name == 'release' && matrix.node == '18'
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        asset_paths: '["./freqUI.zip"]'
+        cd ./dist
+        git init
+        git status
+        git remote add origin https://${{secrets.token}}@github.com/$GITHUB_REPOSITORY.git
+        git checkout -b gh-pages
+        git add --all
+        git commit -m "deploy to Github pages"
+        git push origin gh-pages -f
+        echo 🤘 deploy gh-pages complete.

@@ -40,7 +40,7 @@ export default defineComponent({
       { key: 'pair', label: '交易对' },
       { key: 'lock_end_timestamp', label: '直到', formatter: 'timestampms' },
       { key: 'reason', label: '原因' },
-      { key: 'actions', label: '操作'  },
+      { key: 'actions', label: '操作' },
     ];
 
     const removePairLock = (item: Lock) => {

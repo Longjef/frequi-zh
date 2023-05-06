@@ -136,7 +136,8 @@ function updateChart(initial = false) {
   const colShortEntryData = columns.findIndex((el) => el === '_enter_short_signal_close');
   const colShortExitData = columns.findIndex((el) => el === '_exit_short_signal_close');
 
-  const subplotCount = 'subplots' in props.plotConfig ? Object.keys(props.plotConfig.subplots).length + 1 : 1;
+  const subplotCount =
+    'subplots' in props.plotConfig ? Object.keys(props.plotConfig.subplots).length + 1 : 1;
 
   if (Array.isArray(chartOptions.value?.dataZoom)) {
     // Only set zoom once ...

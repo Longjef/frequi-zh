@@ -114,7 +114,7 @@
                 :date="order.order_timestamp"
                 show-timezone
               />
-              <b class="ms-1">{{ order.ft_order_side === "buy" ? '买入' : '卖出' }}：</b>
+              <b class="ms-1">{{ order.ft_order_side === 'buy' ? '买入' : '卖出' }}：</b>
               <b>{{ formatPrice(order.safe_price) }}</b> |
               <span v-if="order.remaining && order.remaining !== 0" title="remaining"
                 >{{ formatPrice(order.remaining, 8) }} /

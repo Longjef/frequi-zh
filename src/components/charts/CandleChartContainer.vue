@@ -30,9 +30,7 @@
           >
         </div>
         <div class="ms-auto d-flex align-items-center w-auto">
-          <b-form-checkbox v-model="settingsStore.useHeikinAshiCandles"
-            >平均K线</b-form-checkbox
-          >
+          <b-form-checkbox v-model="settingsStore.useHeikinAshiCandles">平均K线</b-form-checkbox>
 
           <div class="ms-2">
             <b-form-select
