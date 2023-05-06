@@ -6,7 +6,7 @@
     <b-form-group
       class="w-25 order-1"
       :class="showTitle ? 'ms-5 ps-5' : 'position-absolute'"
-      label="Bins"
+      label="区间"
       label-for="input-bins"
       label-cols="6"
       content-cols="6"
@@ -55,7 +55,7 @@ use([
 ]);
 
 // Define Column labels here to avoid typos
-const CHART_PROFIT = 'Trade count';
+const CHART_PROFIT = '交易次数';
 
 export default defineComponent({
   name: 'ProfitDistributionChart',

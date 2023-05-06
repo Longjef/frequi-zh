@@ -135,10 +135,10 @@ const removeTradeVisible = ref(false);
 const confirmExitText = ref('');
 const confirmExitValue = ref<ModalReasons | null>(null);
 
-const openFields: TableField[] = [{ key: 'actions' }];
+const openFields: TableField[] = [{ key: 'actions', label: '操作' }];
 const closedFields: TableField[] = [
-  { key: 'close_timestamp', label: 'Close date' },
-  { key: 'exit_reason', label: 'Close Reason' },
+  { key: 'close_timestamp', label: '平仓时间' },
+  { key: 'exit_reason', label: '平仓原因' },
 ];
 const formatPriceWithDecimals = (price) => {
   return formatPrice(price, botStore.activeBot.stakeCurrencyDecimals);
@@ -148,26 +148,26 @@ const rows = computed(() => {
 });
 
 const tableFields: TableField[] = [
-  { key: 'trade_id', label: 'ID' },
-  { key: 'pair', label: 'Pair' },
-  { key: 'amount', label: 'Amount' },
+  { key: 'trade_id', label: '编号' },
+  { key: 'pair', label: '交易对' },
+  { key: 'amount', label: '委托量' },
   {
     key: 'stake_amount',
-    label: 'Stake amount',
+    label: '成交额',
   },
   {
     key: 'open_rate',
-    label: 'Open rate',
+    label: '委托价',
     formatter: (value: unknown) => formatPrice(value as number),
   },
   {
     key: props.activeTrades ? 'current_rate' : 'close_rate',
-    label: props.activeTrades ? 'Current rate' : 'Close rate',
+    label: props.activeTrades ? '当前价' : '成交价',
     formatter: (value: unknown) => formatPrice(value as number),
   },
   {
     key: 'profit',
-    label: props.activeTrades ? 'Current profit %' : 'Profit %',
+    label: props.activeTrades ? '当前收益率 %' : '收益率 %',
 
     formatter: (value: unknown, key?: string, item?: unknown) => {
       if (!item) {
@@ -178,11 +178,11 @@ const tableFields: TableField[] = [
       return `${percent} ${`(${formatPriceWithDecimals(typedItem.profit_abs)})`}`;
     },
   },
-  { key: 'open_timestamp', label: 'Open date' },
+  { key: 'open_timestamp', label: '委托时间' },
   ...(props.activeTrades ? openFields : closedFields),
 ];
 if (props.multiBotView) {
-  tableFields.unshift({ key: 'botName', label: 'Bot' });
+  tableFields.unshift({ key: 'botName', label: '机器人' });
 }
 
 const feOrderType = ref<string | undefined>(undefined);

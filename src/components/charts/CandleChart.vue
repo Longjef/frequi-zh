@@ -136,8 +136,7 @@ function updateChart(initial = false) {
   const colShortEntryData = columns.findIndex((el) => el === '_enter_short_signal_close');
   const colShortExitData = columns.findIndex((el) => el === '_exit_short_signal_close');
 
-  const subplotCount =
-    'subplots' in props.plotConfig ? Object.keys(props.plotConfig.subplots).length + 1 : 1;
+  const subplotCount = 'subplots' in props.plotConfig ? Object.keys(props.plotConfig.subplots).length + 1 : 1;
 
   if (Array.isArray(chartOptions.value?.dataZoom)) {
     // Only set zoom once ...
@@ -189,7 +188,7 @@ function updateChart(initial = false) {
 
     series: [
       {
-        name: 'Candles',
+        name: 'K线',
         type: 'candlestick',
         barWidth: '80%',
         itemStyle: {
@@ -205,7 +204,7 @@ function updateChart(initial = false) {
         },
       },
       {
-        name: 'Volume',
+        name: '成交量',
         type: 'bar',
         xAxisIndex: 1,
         yAxisIndex: 1,
@@ -219,7 +218,7 @@ function updateChart(initial = false) {
         },
       },
       {
-        name: 'Entry',
+        name: '进入',
         type: 'scatter',
         symbol: 'triangle',
         symbolSize: 10,
@@ -242,7 +241,7 @@ function updateChart(initial = false) {
     // }
     if (Array.isArray(options.series)) {
       options.series.push({
-        name: 'Exit',
+        name: '退出',
         type: 'scatter',
         symbol: 'diamond',
         symbolSize: 8,
@@ -263,7 +262,7 @@ function updateChart(initial = false) {
     if (colShortEntryData >= 0) {
       options.series.push({
         // Short entry
-        name: 'Entry',
+        name: '空头进入',
         type: 'scatter',
         symbol: 'triangle',
         symbolRotate: 180,
@@ -286,7 +285,7 @@ function updateChart(initial = false) {
     if (colShortExitData >= 0) {
       options.series.push({
         // Short exit
-        name: 'Exit',
+        name: '空头退出',
         type: 'scatter',
         symbol: 'pin',
         symbolSize: 8,
@@ -331,7 +330,6 @@ function updateChart(initial = false) {
     let plotIndex = 2;
     Object.entries(props.plotConfig.subplots).forEach(([key, value]) => {
       // define yaxis
-
       // Subplots are added from bottom to top - only the "bottom-most" plot stays at the bottom.
       // const currGridIdx = totalSubplots - plotIndex > 1 ? totalSubplots - plotIndex : plotIndex;
       const currGridIdx = plotIndex;
@@ -408,7 +406,7 @@ function updateChart(initial = false) {
   }
   const { tradeData } = getTradeEntries(props.dataset, filteredTrades.value);
 
-  const nameTrades = 'Trades';
+  const nameTrades = '已交易';
   if (!Array.isArray(chartOptions.value.legend) && chartOptions.value.legend?.data) {
     chartOptions.value.legend.data.push(nameTrades);
   }
@@ -468,7 +466,7 @@ function initializeChartOptions() {
     animation: false,
     legend: {
       // Initial legend, further entries are pushed to the below list
-      data: ['Candles', 'Volume', 'Entry', 'Exit'],
+      data: ['K线', '成交量', '进入', '空头退出'],
       right: '1%',
     },
     tooltip: {
@@ -546,7 +544,7 @@ function initializeChartOptions() {
         scale: true,
         gridIndex: 1,
         splitNumber: 2,
-        name: 'volume',
+        name: '成交量',
         nameLocation: 'middle',
         // position: 'right',
         nameGap: NAMEGAP,
@@ -670,6 +668,7 @@ watch(
   width: 100%;
   height: 100%;
 }
+
 .echarts {
   width: 100%;
   min-height: 200px;

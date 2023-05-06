@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <h3>Performance</h3>
+      <h3>表现</h3>
     </div>
     <b-table
       class="table-sm"
@@ -23,14 +23,14 @@ export default defineComponent({
     const botStore = useBotStore();
     const tableFields = computed<TableField[]>(() => {
       return [
-        { key: 'pair', label: 'Pair' },
-        { key: 'profit', label: 'Profit %' },
+        { key: 'pair', label: '交易对' },
+        { key: 'profit', label: '收益率 %' },
         {
           key: 'profit_abs',
-          label: `Profit ${botStore.activeBot.botState?.stake_currency}`,
+          label: `赚取 ${botStore.activeBot.botState?.stake_currency}`,
           formatter: (v: unknown) => formatPrice(v as number, 5),
         },
-        { key: 'count', label: 'Count' },
+        { key: 'count', label: '交易次数' },
       ];
     });
     return {

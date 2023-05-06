@@ -3,17 +3,17 @@
     <!-- <TradeList
       class="open-trades"
       :trades="openTrades"
-      title="Open trades"
+      title="持仓交易"
       :active-trades="true"
-      empty-text="Currently no open trades."
+      empty-text="空"
     /> -->
     <CustomTradeList
       v-if="!history && !botStore.activeBot.detailTradeId"
       :trades="botStore.activeBot.openTrades"
-      title="Open trades"
+      title="持仓交易"
       :active-trades="true"
       :stake-currency-decimals="botStore.activeBot.stakeCurrencyDecimals"
-      empty-text="No open Trades."
+      empty-text="空"
     />
     <CustomTradeList
       v-if="history && !botStore.activeBot.detailTradeId"

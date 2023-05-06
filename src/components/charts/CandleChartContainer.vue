@@ -17,21 +17,21 @@
 
           <b-button class="ms-2" :disabled="!!!pair" size="sm" @click="refresh">&#x21bb;</b-button>
           <small v-if="dataset" class="ms-2 text-nowrap" title="Long entry signals"
-            >Long signals: {{ dataset.enter_long_signals || dataset.buy_signals }}</small
+            >多头信号: {{ dataset.enter_long_signals || dataset.buy_signals }}</small
           >
           <small v-if="dataset" class="ms-2 text-nowrap" title="Long exit signals"
-            >Long exit: {{ dataset.exit_long_signals || dataset.sell_signals }}</small
+            >多头出场: {{ dataset.exit_long_signals || dataset.sell_signals }}</small
           >
           <small v-if="dataset && dataset.enter_short_signals" class="ms-2 text-nowrap"
-            >Short entries: {{ dataset.enter_short_signals }}</small
+            >空头信号: {{ dataset.enter_short_signals }}</small
           >
           <small v-if="dataset && dataset.exit_short_signals" class="ms-2 text-nowrap"
-            >Short exits: {{ dataset.exit_short_signals }}</small
+            >空头出场: {{ dataset.exit_short_signals }}</small
           >
         </div>
         <div class="ms-auto d-flex align-items-center w-auto">
           <b-form-checkbox v-model="settingsStore.useHeikinAshiCandles"
-            >Heikin Ashi</b-form-checkbox
+            >平均K线</b-form-checkbox
           >
 
           <div class="ms-2">
@@ -148,16 +148,16 @@ const noDatasetText = computed((): string => {
 
   switch (status) {
     case LoadingStatus.loading:
-      return 'Loading...';
+      return '...';
 
     case LoadingStatus.success:
-      return 'No data available';
+      return '空';
 
     case LoadingStatus.error:
-      return 'Failed to load data';
+      return '错误';
 
     default:
-      return 'Unknown';
+      return '?';
   }
 });
 const showPlotConfigModal = ref(false);

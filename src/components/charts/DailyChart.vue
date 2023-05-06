@@ -41,8 +41,8 @@ use([
 ]);
 
 // Define Column labels here to avoid typos
-const CHART_ABS_PROFIT = 'Absolute profit';
-const CHART_TRADE_COUNT = 'Trade Count';
+const CHART_ABS_PROFIT = '绝对利润';
+const CHART_TRADE_COUNT = '交易次数';
 
 export default defineComponent({
   components: {
@@ -76,7 +76,7 @@ export default defineComponent({
     const dailyChartOptions: ComputedRef<EChartsOption> = computed(() => {
       return {
         title: {
-          text: 'Daily profit',
+          text: '日收益',
           show: props.showTitle,
         },
         backgroundColor: 'rgba(0, 0, 0, 0)',

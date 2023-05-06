@@ -63,19 +63,19 @@ import { TableField, TableItem } from 'bootstrap-vue-next';
 const botStore = useBotStore();
 
 const tableFields: TableField[] = [
-  { key: 'botName', label: 'Bot' },
-  { key: 'trades', label: 'Trades' },
-  { key: 'profitOpen', label: 'Open Profit' },
-  { key: 'profitClosed', label: 'Closed Profit' },
-  { key: 'balance', label: 'Balance' },
-  { key: 'winVsLoss', label: 'W/L' },
+  { key: 'botName', label: '机器人' },
+  { key: 'trades', label: '交易数' },
+  { key: 'profitOpen', label: '持仓盈利' },
+  { key: 'profitClosed', label: '平仓盈利' },
+  { key: 'balance', label: '资产' },
+  { key: 'winVsLoss', label: '赢/亏' },
 ];
 
 const tableItems = computed<TableItem[]>(() => {
   const val: ComparisonTableItems[] = [];
   const summary: ComparisonTableItems = {
     botId: undefined,
-    botName: 'Summary',
+    botName: '统计',
     profitClosed: 0,
     profitClosedRatio: undefined,
     profitOpen: 0,

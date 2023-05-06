@@ -46,7 +46,7 @@ use([
 ]);
 
 // Define Column labels here to avoid typos
-const CHART_PROFIT = 'Profit %';
+const CHART_PROFIT = '收益率';
 const CHART_COLOR = '#9be0a8';
 
 export default defineComponent({
@@ -99,7 +99,7 @@ export default defineComponent({
           trigger: 'axis',
           formatter: (params) => {
             const botName = params[0].data[3] ? ` | ${params[0].data[3]}` : '';
-            return `${params[0].data[2]} | ${params[0].data[5]} ${botName}<br>${params[0].data[4]}<br>Profit ${params[0].data[1]} %`;
+            return `${params[0].data[2]} | ${params[0].data[5]} ${botName}<br>${params[0].data[4]}<br>收益率 ${params[0].data[1]} %`;
           },
           axisPointer: {
             type: 'line',

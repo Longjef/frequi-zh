@@ -3,7 +3,7 @@
     <b-navbar toggleable="sm" dark variant="primary">
       <router-link class="navbar-brand" exact to="/">
         <img class="logo" src="@/assets/freqtrade-logo.png" alt="Home Logo" />
-        <span class="navbar-brand-title d-sm-none d-md-inline">Freqtrade UI</span>
+        <span class="navbar-brand-title d-sm-none d-md-inline">GTBOT</span>
       </router-link>
 
       <!-- TODO: For XS breakpoint, this should be here...  -->
@@ -13,13 +13,13 @@
       <b-collapse id="nav-collapse" class="text-right text-md-center" is-nav>
         <b-navbar-nav>
           <router-link v-if="!botStore.canRunBacktest" class="nav-link navbar-nav" to="/trade"
-            >Trade</router-link
+            >交易</router-link
           >
           <router-link v-if="!botStore.canRunBacktest" class="nav-link navbar-nav" to="/dashboard"
-            >Dashboard</router-link
+            >面板</router-link
           >
-          <router-link class="nav-link navbar-nav" to="/graph">Chart</router-link>
-          <router-link class="nav-link navbar-nav" to="/logs">Logs</router-link>
+          <router-link class="nav-link navbar-nav" to="/graph">图表</router-link>
+          <router-link class="nav-link navbar-nav" to="/logs">日志</router-link>
           <router-link v-if="botStore.canRunBacktest" class="nav-link navbar-nav" to="/backtest"
             >Backtest</router-link
           >

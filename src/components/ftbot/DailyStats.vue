@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <label class="me-auto h3">Daily Stats</label>
+      <label class="me-auto h3">日统计</label>
       <b-button class="float-end" size="sm" @click="botStore.activeBot.getDaily">&#x21bb;</b-button>
     </div>
     <div>
@@ -33,23 +33,23 @@ export default defineComponent({
     const botStore = useBotStore();
     const dailyFields = computed<TableField[]>(() => {
       const res: TableField[] = [
-        { key: 'date', label: 'Day' },
+        { key: 'date', label: '日期' },
         {
           key: 'abs_profit',
-          label: 'Profit',
+          label: '收益',
           // formatter: (value: unknown) => formatPrice(value as number),
         },
         {
           key: 'fiat_value',
-          label: `In ${botStore.activeBot.dailyStats.fiat_display_currency}`,
+          label: `换算 ${botStore.activeBot.dailyStats.fiat_display_currency}`,
           // formatter: (value: unknown) => formatPrice(value as number, 2),
         },
-        { key: 'trade_count', label: 'Trades' },
+        { key: 'trade_count', label: '交易次数' },
       ];
       if (botStore.activeBot.botApiVersion >= 2.16)
         res.push({
           key: 'rel_profit',
-          label: 'Profit%',
+          label: '收益率',
           formatter: (value: unknown) => formatPercent(value as number, 2),
         });
       return res;

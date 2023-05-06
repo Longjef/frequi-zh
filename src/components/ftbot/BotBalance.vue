@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <label class="me-auto h3">Balance</label>
+      <label class="me-auto h3">资产</label>
       <div class="float-end d-flex flex-row">
         <b-button
           v-if="canUseBotBalance"
@@ -14,7 +14,7 @@
         </b-button>
         <b-button
           size="sm"
-          :title="!hideSmallBalances ? 'Hide small balances' : 'Show all balances'"
+          :title="!hideSmallBalances ? '隐藏小资产' : '显示所有'"
           @click="hideSmallBalances = !hideSmallBalances"
         >
           <HideIcon v-if="hideSmallBalances" :size="16" />
@@ -109,15 +109,15 @@ const chartValues = computed<BalanceValues[]>(() => {
 
 const tableFields = computed<TableField[]>(() => {
   return [
-    { key: 'currency', label: 'Currency' },
+    { key: 'currency', label: '币种' },
     {
       key: showBotOnly.value && canUseBotBalance.value ? 'bot_owned' : 'free',
-      label: 'Available',
+      label: '可用',
       formatter: formatCurrency,
     },
     {
       key: showBotOnly.value && canUseBotBalance.value ? 'est_stake_bot' : 'est_stake',
-      label: `in ${botStore.activeBot.balance.stake}`,
+      label: `价值 ${botStore.activeBot.balance.stake}`,
       formatter: formatCurrency,
     },
   ];

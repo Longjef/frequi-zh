@@ -27,7 +27,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer :header="`Daily Profit ${botStore.botCount > 1 ? 'combined' : ''}`">
+        <DraggableContainer :header="`日收益 ${botStore.botCount > 1 ? 'combined' : ''}`">
           <DailyChart
             v-if="botStore.allDailyStatsSelectedBots"
             :daily-stats="botStore.allDailyStatsSelectedBots"
@@ -46,7 +46,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer header="Bot comparison">
+        <DraggableContainer header="机器人对比">
           <bot-comparison-list />
         </DraggableContainer>
       </grid-item>
@@ -64,7 +64,7 @@
         <DraggableContainer>
           <template #header>
             <div class="d-flex justify-content-center">
-              Open Trades
+              持仓交易
               <InfoBox
                 class="ms-2"
                 hint="Open trades of all selected bots. Click on a trade to go to the trade page for that trade/bot."
@@ -85,7 +85,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer header="Cumulative Profit">
+        <DraggableContainer header="累计收益">
           <CumProfitChart :trades="botStore.allTradesSelectedBots" :show-title="false" />
         </DraggableContainer>
       </grid-item>
@@ -103,7 +103,7 @@
         <DraggableContainer>
           <template #header>
             <div class="d-flex justify-content-center">
-              Closed Trades
+              平仓交易
               <InfoBox
                 class="ms-2"
                 hint="Closed trades for all selected bots. Click on a trade to go to the trade page for that trade/bot."
@@ -129,7 +129,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer header="Profit Distribution">
+        <DraggableContainer header="收益分布">
           <ProfitDistributionChart :trades="botStore.allTradesSelectedBots" :show-title="false" />
         </DraggableContainer>
       </grid-item>
@@ -144,7 +144,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer header="Trades Log">
+        <DraggableContainer header="日志">
           <TradesLogChart :trades="botStore.allTradesSelectedBots" :show-title="false" />
         </DraggableContainer>
       </grid-item>

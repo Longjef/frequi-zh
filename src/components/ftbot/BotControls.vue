@@ -4,7 +4,7 @@ forceexit
     <button
       class="btn btn-secondary btn-sm ms-1"
       :disabled="!botStore.activeBot.isTrading || isRunning"
-      title="Start Trading"
+      title="开始交易"
       @click="botStore.activeBot.startBot()"
     >
       <PlayIcon />
@@ -12,7 +12,7 @@ forceexit
     <button
       class="btn btn-secondary btn-sm ms-1"
       :disabled="!botStore.activeBot.isTrading || !isRunning"
-      title="Stop Trading - Also stops handling open trades."
+      title="停止交易 - 同时停止处理未平仓交易"
       @click="handleStopBot()"
     >
       <StopIcon />
@@ -20,7 +20,7 @@ forceexit
     <button
       class="btn btn-secondary btn-sm ms-1"
       :disabled="!botStore.activeBot.isTrading || !isRunning"
-      title="StopBuy - Stops buying, but still handles open trades"
+      title="停止买入 - 停止购买，但仍处理未平仓交易"
       @click="handleStopBuy()"
     >
       <PauseIcon />
@@ -28,7 +28,7 @@ forceexit
     <button
       class="btn btn-secondary btn-sm ms-1"
       :disabled="!botStore.activeBot.isTrading"
-      title="Reload Config - reloads configuration including strategy, resetting all settings changed on the fly."
+      title="重新加载配置 - 重新加载配置，包括策略，将所有在运行时更改的设置重置为初始值"
       @click="handleReloadConfig()"
     >
       <ReloadIcon />
@@ -36,7 +36,7 @@ forceexit
     <button
       class="btn btn-secondary btn-sm ms-1"
       :disabled="!botStore.activeBot.isTrading"
-      title="Force exit all"
+      title="强制退出所有"
       @click="handleForceExit()"
     >
       <ForceExitIcon />

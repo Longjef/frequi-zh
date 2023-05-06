@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <label class="me-auto h3">Pair Locks</label>
+      <label class="me-auto h3">锁定</label>
       <b-button class="float-end" size="sm" @click="botStore.activeBot.getLocks">&#x21bb;</b-button>
     </div>
     <div>
@@ -37,10 +37,10 @@ export default defineComponent({
     const botStore = useBotStore();
 
     const tableFields = [
-      { key: 'pair', label: 'Pair' },
-      { key: 'lock_end_timestamp', label: 'Until', formatter: 'timestampms' },
-      { key: 'reason', label: 'Reason' },
-      { key: 'actions' },
+      { key: 'pair', label: '交易对' },
+      { key: 'lock_end_timestamp', label: '直到', formatter: 'timestampms' },
+      { key: 'reason', label: '原因' },
+      { key: 'actions', label: '操作'  },
     ];
 
     const removePairLock = (item: Lock) => {

@@ -157,10 +157,10 @@ export const useBotStore = defineStore('ftbot-wrapper', {
       if (Object.keys(this.availableBots).includes(bot.botId)) {
         // throw 'Bot already present';
         // TODO: handle error!
-        console.log('Bot already present');
+        console.log('机器人已存在');
         return;
       }
-      console.log('add bot', bot);
+      console.log('添加机器人', bot);
       const botStore = createBotSubStore(bot.botId, bot.botName);
       botStore.botAdded();
       this.botStores[bot.botId] = botStore;
@@ -171,7 +171,7 @@ export const useBotStore = defineStore('ftbot-wrapper', {
     updateBot(botId: string, bot: Partial<BotDescriptor>) {
       if (!Object.keys(this.availableBots).includes(botId)) {
         // TODO: handle error!
-        console.error('Bot not found');
+        console.error('机器人不存在');
         return;
       }
       this.botStores[botId].updateBot(bot);

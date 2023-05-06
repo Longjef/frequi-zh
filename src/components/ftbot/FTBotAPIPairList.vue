@@ -2,7 +2,7 @@
   <!-- TODO We could move the list into a component since we are reusing the same code for both lists. -->
   <div>
     <div>
-      <h3>Whitelist Methods</h3>
+      <h3>白名单方法</h3>
 
       <div v-if="botStore.activeBot.pairlistMethods.length" class="list">
         <b-list-group v-for="(method, key) in botStore.activeBot.pairlistMethods" :key="key">
@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- Show Whitelist -->
-    <h3 :title="`${botStore.activeBot.whitelist.length} pairs`">Whitelist</h3>
+    <h3 :title="`${botStore.activeBot.whitelist.length} pairs`">白名单</h3>
     <div v-if="botStore.activeBot.whitelist.length" class="list">
       <b-list-group v-for="(pair, key) in botStore.activeBot.whitelist" :key="key">
         <b-list-group-item class="pair white">{{ pair }}</b-list-group-item>
@@ -25,7 +25,7 @@
       <label
         class="me-auto h3"
         title="Blacklist - Select (followed by a click on '-') to remove pairs"
-        >Blacklist</label
+        >黑名单</label
       >
       <div class="float-end d-flex d-flex-columns pe-1">
         <b-button
@@ -85,7 +85,7 @@
         >
       </b-list-group>
     </div>
-    <p v-else>BlackList Unavailable. Please Login and make sure server is running.</p>
+    <p v-else>黑名单不可用。请登录并确保服务器正在运行。</p>
     <!-- Pagination -->
     <!-- TODO Add pagination support -->
   </div>

@@ -36,7 +36,7 @@ use([
 ]);
 
 // Define Column labels here to avoid typos
-const CHART_PROFIT = 'Profit';
+const CHART_PROFIT = 'USDT';
 
 export default defineComponent({
   name: 'CumProfitChart',
