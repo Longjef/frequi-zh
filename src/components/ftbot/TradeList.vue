@@ -80,7 +80,7 @@
         v-if="showFilter"
         v-model="filterText"
         type="text"
-        placeholder="Filter"
+        placeholder="过滤器"
         size="sm"
         style="width: unset"
       />
@@ -120,7 +120,7 @@ const props = defineProps({
   activeTrades: { default: false, type: Boolean },
   showFilter: { default: false, type: Boolean },
   multiBotView: { default: false, type: Boolean },
-  emptyText: { default: 'No Trades to show.', type: String },
+  emptyText: { default: '空', type: String },
 });
 const botStore = useBotStore();
 const router = useRouter();

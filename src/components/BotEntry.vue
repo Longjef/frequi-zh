@@ -46,10 +46,10 @@
       v-if="!noButtons"
       id="removeBotModal"
       v-model="botRemoveModalVisible"
-      title="Logout confirmation"
+      title="注销"
       @ok="confirmRemoveBot"
     >
-      Really remove (logout) from {{ bot.botName }} ({{ bot.botId }})?
+      真的要移除 {{ bot.botName }} ({{ bot.botId }})?
     </b-modal>
   </div>
 </template>

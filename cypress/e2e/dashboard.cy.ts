@@ -31,15 +31,15 @@ describe('Dashboard', () => {
     cy.wait('@Performance');
     cy.get('.drag-header').contains('机器人对比').should('be.visible');
     cy.get('.drag-header').contains('日收益').should('be.visible');
-    cy.get('.drag-header').contains('持仓交易').should('be.visible');
+    cy.get('.drag-header').contains('当前委托').should('be.visible');
     cy.get('.drag-header').contains('累计收益').should('be.visible');
 
     // Assert Botcomparison content
     cy.get('span').contains('TestBot').should('be.visible');
     cy.get('span').contains('统计').should('be.visible');
     // Scroll lower
-    cy.get('.drag-header').contains('平仓交易').scrollIntoView();
-    cy.get('.drag-header').contains('平仓交易').should('be.visible');
+    cy.get('.drag-header').contains('成交记录').scrollIntoView();
+    cy.get('.drag-header').contains('成交记录').should('be.visible');
     cy.get('.drag-header').contains('收益分布').should('be.visible');
     cy.get('.drag-header').contains('日志').should('be.visible');
   });

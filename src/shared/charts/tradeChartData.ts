@@ -12,14 +12,14 @@ function buildTooltipCost(trade: Trade, order: Order | BTOrder): string {
 function buildToolTip(trade: Trade, order: Order | BTOrder, side: string): string {
   return `${trade.is_short ? '空头' : '多头'} ${side}  ${formatPercent(trade.profit_ratio)}
   ${buildTooltipCost(trade, order)}
-  进入标签：${trade.enter_tag ?? ''}
-  退出标签：${trade.exit_reason ?? ''}`;
+  买入标签：${trade.enter_tag ?? ''}
+  卖出标签：${trade.exit_reason ?? ''}`;
 }
 
 function buildAdjustmentToolTip(trade: Trade, order: Order | BTOrder): string {
   return `${trade.is_short ? '空头' : '多头'} adjustment
   ${buildTooltipCost(trade, order)}
-  进入标签：${trade.enter_tag ?? ''}`;
+  买入标签：${trade.enter_tag ?? ''}`;
 }
 
 // const ENTRY_SYMB = 'circle';
@@ -72,7 +72,7 @@ export function getTradeEntries(dataset: PairHistory, filteredTrades: Trade[]) {
                 order.ft_order_side == 'sell' ? 180 : 0,
                 trade.is_short ? SHORT_COLOR : LONG_COLOR,
                 trade.is_short ? '空头' : '多头',
-                buildToolTip(trade, order, '进入'),
+                buildToolTip(trade, order, '买入'),
               ]);
               // Trade exit
             } else if (i === trade.orders.length - 1 && trade.close_timestamp) {
@@ -90,7 +90,7 @@ export function getTradeEntries(dataset: PairHistory, filteredTrades: Trade[]) {
                   trade.is_short ? SHORT_COLOR : LONG_COLOR,
                   // (trade.profit_abs ?? 0) > 0 ? '#31e04b' : '#fc0505',
                   formatPercent(trade.profit_ratio, 2),
-                  buildToolTip(trade, order, '退出'),
+                  buildToolTip(trade, order, '卖出'),
                 ]);
               }
             }

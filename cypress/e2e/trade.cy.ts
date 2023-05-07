@@ -56,8 +56,8 @@ describe('Trade', () => {
     cy.get('button[role="tab"]').contains('概况').click();
     cy.get('button').contains('ETH/USDT').should('not.be.visible');
     // 2nd segment
-    cy.get('.drag-header').contains('持仓交易').scrollIntoView().should('be.visible');
-    cy.get('.drag-header').contains('平仓交易').scrollIntoView().should('be.visible');
+    cy.get('.drag-header').contains('当前委托').scrollIntoView().should('be.visible');
+    cy.get('.drag-header').contains('成交记录').scrollIntoView().should('be.visible');
     cy.get('span').contains('TRX/USDT').should('be.visible');
     cy.get('td').contains('8070.5').should('be.visible');
   });

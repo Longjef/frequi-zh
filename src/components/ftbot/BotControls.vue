@@ -36,7 +36,7 @@ forceexit
     <button
       class="btn btn-secondary btn-sm ms-1"
       :disabled="!botStore.activeBot.isTrading"
-      title="强制退出所有"
+      title="强制卖出所有"
       @click="handleForceExit()"
     >
       <ForceExitIcon />
@@ -122,8 +122,8 @@ export default defineComponent({
 
     const handleReloadConfig = () => {
       const msg: MsgBoxObject = {
-        title: 'Reload',
-        message: 'Reload configuration (including strategy)?',
+        title: '重载',
+        message: '重新加载配置（包括策略）?',
         accept: () => {
           console.log('reload...');
           botStore.activeBot.reloadConfig();

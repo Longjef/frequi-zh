@@ -7,12 +7,7 @@
     <div>
       <b-table class="table-sm" :items="botStore.activeBot.activeLocks" :fields="tableFields">
         <template #cell(actions)="row">
-          <b-button
-            class="btn-xs ms-1"
-            size="sm"
-            title="Delete trade"
-            @click="removePairLock(row.item)"
-          >
+          <b-button class="btn-xs ms-1" size="sm" title="删除" @click="removePairLock(row.item)">
             <DeleteIcon :size="16" />
           </b-button>
         </template>

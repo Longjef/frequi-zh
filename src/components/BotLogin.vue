@@ -1,17 +1,16 @@
 <template>
   <div>
     <form ref="formRef" novalidate @submit.stop.prevent="handleSubmit" @reset="handleReset">
-      <b-form-group label="机器人名称" label-for="name-input">
+      <b-form-group label="名称" label-for="name-input">
         <b-form-input
           id="name-input"
           v-model="auth.botName"
-          placeholder="机器人名称"
           @keydown.enter="handleOk"
         ></b-form-input>
       </b-form-group>
       <b-form-group
         :state="urlState"
-        label="后端接口"
+        label="接口"
         label-for="url-input"
         invalid-feedback="API Url required"
       >
@@ -58,10 +57,9 @@
         <b-alert v-if="errorMessage" class="alert-wrap" :model-value="true" variant="warning">
           {{ errorMessage }}
           <br />
-          <span v-if="errorMessageCORS">
-            Please also check your bot's CORS configuration:
-            <a href="https://www.freqtrade.io/en/latest/rest-api/#cors"
-              >Freqtrade CORS documentation</a
+          <span v-if="errorMessageCORS"
+            >请检查 CORS 配置<a href="https://www.freqtrade.io/en/latest/rest-api/#cors"
+              >CORS 配置文档</a
             ></span
           >
         </b-alert>
@@ -190,9 +188,8 @@ const handleSubmit = async () => {
       errorMessage.value = 'Connected to bot, however Login failed, Username or Password wrong.';
     } else {
       urlState.value = false;
-      errorMessage.value = `Login failed.
-Please verify that the bot is running, the Bot API is enabled and the URL is reachable.
-You can verify this by navigating to ${auth.value.url}/api/v1/ping to make sure the bot API is reachable`;
+      errorMessage.value = `登录错误
+请检查 ${auth.value.url}/api/v1/ping 是否可达！`;
       if (auth.value.url !== window.location.origin) {
         errorMessageCORS.value = true;
       }

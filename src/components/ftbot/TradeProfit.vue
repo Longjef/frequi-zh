@@ -3,7 +3,7 @@
     :profit-ratio="profitRatio"
     :profit-abs="profitAbs"
     :profit-desc="profitDesc"
-    :stake-currency="trade.quote_currency || 'USDT'"
+    :stake-currency="trade.quote_currency || 'USD'"
   />
 </template>
 

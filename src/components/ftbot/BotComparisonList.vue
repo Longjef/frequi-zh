@@ -80,7 +80,7 @@ const tableItems = computed<TableItem[]>(() => {
     profitClosedRatio: undefined,
     profitOpen: 0,
     profitOpenRatio: undefined,
-    stakeCurrency: 'USDT',
+    stakeCurrency: 'USD',
     wins: 0,
     losses: 0,
   };

@@ -137,7 +137,7 @@ export const useBotStore = defineStore('ftbot-wrapper', {
       });
 
       const dailyReturn: DailyReturnValue = {
-        stake_currency: 'USDT',
+        stake_currency: 'USD',
         fiat_display_currency: 'USD',
         data: Object.values(resp).sort((a, b) => (a.date > b.date ? 1 : -1)),
       };

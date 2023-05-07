@@ -353,7 +353,7 @@ const perPairFields = computed(() => {
     { key: 'trades', label: 'Buys' },
     {
       key: 'profit_mean',
-      label: 'Avg Profit %',
+      label: '平均收益率 %',
       formatter: (value) => formatPercent(value, 2),
     },
     { key: 'profit_sum', label: 'Cum Profit %', formatter: (value) => formatPercent(value, 2) },
@@ -380,7 +380,7 @@ const perExitReason = computed(() => {
     { key: 'trades', label: 'Buys' },
     {
       key: 'profit_mean',
-      label: 'Avg Profit %',
+      label: '平均收益率 %',
       formatter: (value) => formatPercent(value, 2),
     },
     { key: 'profit_sum', label: 'Cum Profit %', formatter: (value) => formatPercent(value, 2) },

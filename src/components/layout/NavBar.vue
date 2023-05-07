@@ -2,7 +2,6 @@
   <header>
     <b-navbar toggleable="sm" dark variant="primary">
       <router-link class="navbar-brand" exact to="/">
-        <img class="logo" src="@/assets/freqtrade-logo.png" alt="Home Logo" />
         <span class="navbar-brand-title d-sm-none d-md-inline">GTBOT</span>
       </router-link>
 
@@ -50,16 +49,13 @@
             class="d-none d-sm-flex flex-sm-wrap flex-lg-nowrap align-items-center nav-item text-secondary me-2"
           >
             <b-nav-text class="verticalCenter small me-2">
-              {{
-                (botStore.activeBotorUndefined && botStore.activeBotorUndefined.botName) ||
-                'No bot selected'
-              }}
+              {{ (botStore.activeBotorUndefined && botStore.activeBotorUndefined.botName) || '空' }}
             </b-nav-text>
             <b-nav-text class="verticalCenter">
               {{
                 botStore.activeBotorUndefined && botStore.activeBotorUndefined.isBotOnline
-                  ? 'Online'
-                  : 'Offline'
+                  ? '在线'
+                  : '离线'
               }}
             </b-nav-text>
           </li>
@@ -67,7 +63,7 @@
             <!-- Hide dropdown on xs, instead show below  -->
             <b-nav-item-dropdown id="avatar-drop" right auto-close class="d-none d-sm-block">
               <template #button-content>
-                <b-avatar size="2em" button>FT</b-avatar>
+                <b-avatar size="2em" button>📈</b-avatar>
               </template>
               <span class="ps-3">V: {{ settingsStore.uiVersion }}</span>
               <router-link class="dropdown-item" to="/settings">Settings</router-link>
@@ -90,14 +86,14 @@
                   <b-nav-text class="verticalCenter small me-2">
                     {{
                       (botStore.activeBotorUndefined && botStore.activeBotorUndefined.botName) ||
-                      'No bot selected'
+                      '空'
                     }}
                   </b-nav-text>
                   <b-nav-text class="verticalCenter">
                     {{
                       botStore.activeBotorUndefined && botStore.activeBotorUndefined.isBotOnline
-                        ? 'Online'
-                        : 'Offline'
+                        ? '在线'
+                        : '离线'
                     }}
                   </b-nav-text>
                 </div>

@@ -5,22 +5,21 @@
         <h5 class="detail-header">概况</h5>
         <ValuePair description="编号">{{ trade.trade_id }}</ValuePair>
         <ValuePair description="市场">{{ trade.pair }}</ValuePair>
-
-        <ValuePair description="时间">{{ timestampms(trade.open_timestamp) }}</ValuePair>
-        <ValuePair v-if="trade.enter_tag" description="Entry tag">{{ trade.enter_tag }}</ValuePair>
+        <ValuePair description="委托时间">{{ timestampms(trade.open_timestamp) }}</ValuePair>
+        <ValuePair v-if="trade.close_timestamp" description="成交时间">{{
+          timestampms(trade.close_timestamp)
+        }}</ValuePair>
+        <ValuePair v-if="trade.enter_tag" description="买入标记">{{ trade.enter_tag }}</ValuePair>
         <ValuePair description="成交额"
           >{{ formatPriceCurrency(trade.stake_amount, stakeCurrency) }}
           {{ trade.leverage && trade.leverage !== 1 ? `(${trade.leverage}x)` : '' }}</ValuePair
         >
         <ValuePair description="委托量">{{ trade.amount }}</ValuePair>
         <ValuePair description="委托价">{{ formatPrice(trade.open_rate) }}</ValuePair>
-        <ValuePair v-if="!trade.is_open && trade.close_rate" description="成交价格">{{
+        <ValuePair v-if="!trade.is_open && trade.close_rate" description="成交价">{{
           formatPrice(trade.close_rate)
         }}</ValuePair>
 
-        <ValuePair v-if="trade.close_timestamp" description="成交时间">{{
-          timestampms(trade.close_timestamp)
-        }}</ValuePair>
         <ValuePair
           v-if="trade.is_open && trade.realized_profit && !trade.total_profit_abs"
           description="Realized Profit"
@@ -73,12 +72,12 @@
         </ValuePair>
         <ValuePair
           v-if="trade.is_open && trade.stoploss_current_dist_ratio && trade.stoploss_current_dist"
-          description="Current stoploss dist"
+          description="止损距离"
         >
           {{ formatPercent(trade.stoploss_current_dist_ratio) }} |
           {{ formatPrice(trade.stoploss_current_dist) }}
         </ValuePair>
-        <ValuePair v-if="trade.stoploss_last_update_timestamp" description="Stoploss last updated">
+        <ValuePair v-if="trade.stoploss_last_update_timestamp" description="最后更新">
           {{ timestampms(trade.stoploss_last_update_timestamp) }}
         </ValuePair>
         <div v-if="trade.trading_mode !== undefined && trade.trading_mode !== 'spot'">

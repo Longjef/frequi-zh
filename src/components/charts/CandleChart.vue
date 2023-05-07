@@ -219,7 +219,7 @@ function updateChart(initial = false) {
         },
       },
       {
-        name: '进入',
+        name: '买入',
         type: 'scatter',
         symbol: 'triangle',
         symbolSize: 10,
@@ -242,7 +242,7 @@ function updateChart(initial = false) {
     // }
     if (Array.isArray(options.series)) {
       options.series.push({
-        name: '退出',
+        name: '卖出',
         type: 'scatter',
         symbol: 'diamond',
         symbolSize: 8,
@@ -263,7 +263,7 @@ function updateChart(initial = false) {
     if (colShortEntryData >= 0) {
       options.series.push({
         // Short entry
-        name: '空头进入',
+        name: '空头买入',
         type: 'scatter',
         symbol: 'triangle',
         symbolRotate: 180,
@@ -286,7 +286,7 @@ function updateChart(initial = false) {
     if (colShortExitData >= 0) {
       options.series.push({
         // Short exit
-        name: '空头退出',
+        name: '空头卖出',
         type: 'scatter',
         symbol: 'pin',
         symbolSize: 8,
@@ -467,7 +467,7 @@ function initializeChartOptions() {
     animation: false,
     legend: {
       // Initial legend, further entries are pushed to the below list
-      data: ['K线', '成交量', '进入', '空头退出'],
+      data: ['K线', '成交量', '买入', '卖出'],
       right: '1%',
     },
     tooltip: {

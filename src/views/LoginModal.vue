@@ -3,12 +3,7 @@
     <b-button @click="openLoginModal()"
       ><LoginIcon :size="16" class="me-1" />{{ loginText }}</b-button
     >
-    <b-modal
-      id="modal-prevent-closing"
-      v-model="loginViewOpen"
-      title="登录机器人后端"
-      @ok="handleOk"
-    >
+    <b-modal id="modal-prevent-closing" v-model="loginViewOpen" title="添加后端" @ok="handleOk">
       <login
         ref="loginForm"
         in-modal

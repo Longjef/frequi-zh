@@ -27,7 +27,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer :header="`日收益 ${botStore.botCount > 1 ? 'combined' : ''}`">
+        <DraggableContainer :header="`日收益 ${botStore.botCount > 1 ? '合计' : ''}`">
           <DailyChart
             v-if="botStore.allDailyStatsSelectedBots"
             :daily-stats="botStore.allDailyStatsSelectedBots"
@@ -64,7 +64,7 @@
         <DraggableContainer>
           <template #header>
             <div class="d-flex justify-content-center">
-              持仓记录
+              当前委托
               <InfoBox
                 class="ms-2"
                 hint="Open trades of all selected bots. Click on a trade to go to the trade page for that trade/bot."
@@ -103,7 +103,7 @@
         <DraggableContainer>
           <template #header>
             <div class="d-flex justify-content-center">
-              平仓记录
+              成交记录
               <InfoBox
                 class="ms-2"
                 hint="Closed trades for all selected bots. Click on a trade to go to the trade page for that trade/bot."

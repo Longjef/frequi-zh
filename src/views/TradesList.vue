@@ -3,14 +3,14 @@
     <!-- <TradeList
       class="open-trades"
       :trades="openTrades"
-      title="持仓记录"
+      title="当前委托"
       :active-trades="true"
       empty-text="空"
     /> -->
     <CustomTradeList
       v-if="!history && !botStore.activeBot.detailTradeId"
       :trades="botStore.activeBot.openTrades"
-      title="持仓记录"
+      title="当前委托"
       :active-trades="true"
       :stake-currency-decimals="botStore.activeBot.stakeCurrencyDecimals"
       empty-text="空"
@@ -20,7 +20,7 @@
       :trades="botStore.activeBot.closedTrades"
       title="Trade history"
       :stake-currency-decimals="botStore.activeBot.stakeCurrencyDecimals"
-      empty-text="No closed trades so far."
+      empty-text="空"
     />
     <div
       v-if="botStore.activeBot.detailTradeId && botStore.activeBot.tradeDetail"

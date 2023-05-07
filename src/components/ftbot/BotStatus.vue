@@ -22,11 +22,11 @@
     <p>
       交易模式：<strong>{{ botStore.activeBot.botState.trading_mode || 'spot' }}</strong>
     </p>
-    <!--<p>
-      交易策略：<strong>{{ botStore.activeBot.botState.strategy }}</strong>
-    </p>-->
     <p>
-      交易止损：<strong>{{
+      交易策略：<strong>{{ botStore.activeBot.botState.strategy }}</strong>
+    </p>
+    <p>
+      平台止损：<strong>{{
         botStore.activeBot.botState.stoploss_on_exchange ? 'enabled' : 'disabled'
       }}</strong>
     </p>

@@ -103,7 +103,7 @@ export default defineComponent({
         },
         xAxis: {
           type: 'category',
-          name: 'Profit %',
+          name: '收益率 %',
           nameLocation: 'middle',
           nameGap: 25,
         },

@@ -49,7 +49,7 @@
               <DailyStats />
             </b-tab>
 
-            <b-tab title="市场" lazy>
+            <b-tab title="过滤" lazy>
               <FTBotAPIPairList />
             </b-tab>
             <b-tab title="锁定" lazy>
@@ -68,11 +68,11 @@
         :h="gridLayoutOpenTrades.h"
         drag-allow-from=".card-header"
       >
-        <DraggableContainer header="持仓记录">
+        <DraggableContainer header="当前委托">
           <TradeList
             class="open-trades"
             :trades="botStore.activeBot.openTrades"
-            title="持仓记录"
+            title="当前委托"
             :active-trades="true"
             empty-text="空"
           />
@@ -88,13 +88,13 @@
         :h="gridLayoutTradeHistory.h"
         drag-allow-from=".card-header"
       >
-        <DraggableContainer header="平仓记录">
+        <DraggableContainer header="成交记录">
           <trade-list
             class="trade-history"
             :trades="botStore.activeBot.closedTrades"
             title="Trade history"
             :show-filter="true"
-            empty-text="No closed trades so far."
+            empty-text="空"
           />
         </DraggableContainer>
       </grid-item>
@@ -113,7 +113,7 @@
         :min-h="4"
         drag-allow-from=".card-header"
       >
-        <DraggableContainer header="交易详情">
+        <DraggableContainer header="订单详情">
           <TradeDetail
             :trade="botStore.activeBot.tradeDetail"
             :stake-currency="botStore.activeBot.stakeCurrency"

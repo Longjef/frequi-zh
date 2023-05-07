@@ -17,7 +17,7 @@
         <b-list-group-item class="pair white">{{ pair }}</b-list-group-item>
       </b-list-group>
     </div>
-    <p v-else>List Unavailable. Please Login and make sure server is running.</p>
+    <p v-else>白名单不可用。请登录并确保服务器正在运行。</p>
     <hr />
 
     <!-- Blacklsit -->
@@ -33,7 +33,7 @@
           class="me-1"
           :class="botStore.activeBot.botApiVersion >= 1.12 ? 'col-6' : ''"
           size="sm"
-          >+
+        >
         </b-button>
         <b-button
           v-if="botStore.activeBot.botApiVersion >= 1.12"
@@ -47,14 +47,14 @@
         </b-button>
       </div>
       <b-popover
-        title="Add to blacklist"
+        title="添加黑名单"
         target="blacklist-add-btn"
         triggers="click"
         :show="blackListShow"
       >
         <form ref="form" @submit.prevent>
           <div>
-            <b-form-group label-cols="2" label="Pair" label-for="pair-input">
+            <b-form-group label-cols="2" label="交易对" label-for="pair-input">
               <b-form-input
                 id="pair-input"
                 v-model="newblacklistpair"
@@ -69,7 +69,7 @@
               type="submit"
               @click="addBlacklistPair"
             >
-              Add</b-button
+              添加</b-button
             >
           </div>
         </form>

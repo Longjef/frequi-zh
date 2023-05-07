@@ -3,9 +3,6 @@
     <div class="d-flex justify-content-center">
       <bot-list />
     </div>
-    <hr />
-    <!-- <img alt="Freqtrade logo" src="../assets/freqtrade-logo.png" width="450px" class="my-5" /> -->
-    <div title="Freqtrade logo" class="logo-svg my-5 mx-auto" />
   </div>
 </template>
 

@@ -7,7 +7,7 @@
       title="Forceexit"
       @click="$emit('forceExit', trade)"
     >
-      <ForceSellIcon :size="16" title="Forceexit" class="me-1" />强制退出
+      <ForceSellIcon :size="16" title="Forceexit" class="me-1" />强制卖出
     </b-button>
     <b-button
       v-if="botApiVersion > 1.1"
@@ -25,7 +25,7 @@
       title="Forceexit market"
       @click="$emit('forceExit', trade, 'market')"
     >
-      <ForceSellIcon :size="16" title="Forceexit market" class="me-1" />强制部分平仓
+      <ForceSellIcon :size="16" title="Forceexit market" class="me-1" />强制市价平仓
     </b-button>
     <b-button
       v-if="botApiVersion > 2.16"

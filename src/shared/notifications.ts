@@ -23,10 +23,7 @@ export function showNotification(msg: FTWsMessage, botname: string) {
         break;
       case FtWsMessageTypes.entryCancel:
         console.log('entryCancel', msg);
-        showAlert(
-          `${botname}: Entry order cancelled for ${msg.pair} due to ${msg.reason}`,
-          'warning',
-        );
+        showAlert(`已取消 ${botname} 订单: ${msg.pair} - ${msg.reason}`, 'warning');
         break;
     }
   } else {

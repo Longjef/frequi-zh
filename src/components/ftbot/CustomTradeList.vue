@@ -52,7 +52,7 @@ export default defineComponent({
     activeTrades: { default: false, type: Boolean },
     showFilter: { default: false, type: Boolean },
     multiBotView: { default: false, type: Boolean },
-    emptyText: { default: 'No Trades to show.', type: String },
+    emptyText: { default: '空', type: String },
     stakeCurrencyDecimals: { default: 3, type: Number },
   },
   setup(props) {
