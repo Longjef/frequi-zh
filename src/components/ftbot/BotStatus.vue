@@ -14,17 +14,17 @@
       同时交易：<strong>{{ botStore.activeBot.botState.max_open_trades }}</strong>
     </p>
     <p>
-      投注金额：<strong>{{ botStore.activeBot.botState.stake_amount }}</strong>
+      委托限制：<strong>{{ botStore.activeBot.botState.stake_amount }}</strong>
     </p>
     <p>
-      投注货币：<strong>{{ botStore.activeBot.botState.stake_currency }}</strong>
+      委托币种：<strong>{{ botStore.activeBot.botState.stake_currency }}</strong>
     </p>
     <p>
       交易模式：<strong>{{ botStore.activeBot.botState.trading_mode || 'spot' }}</strong>
     </p>
-    <p>
+    <!--<p>
       交易策略：<strong>{{ botStore.activeBot.botState.strategy }}</strong>
-    </p>
+    </p>-->
     <p>
       交易止损：<strong>{{
         botStore.activeBot.botState.stoploss_on_exchange ? 'enabled' : 'disabled'
