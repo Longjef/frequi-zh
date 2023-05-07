@@ -314,14 +314,14 @@ export function createBotSubStore(botId: string, botName: string) {
       async deleteLock(lockid: string) {
         try {
           const res = await api.delete<LockResponse>(`/locks/${lockid}`);
-          showAlert(`Deleted Lock ${lockid}.`);
+          showAlert(`删除锁定 ${lockid}.`);
           this.currentLocks = res.data;
           return Promise.resolve(res);
         } catch (error) {
           if (axios.isAxiosError(error)) {
             console.error(error.response);
           }
-          showAlert(`Failed to delete lock ${lockid}`, 'danger');
+          showAlert(`无法删除 ${lockid}`, 'danger');
           return Promise.reject(error);
         }
       },

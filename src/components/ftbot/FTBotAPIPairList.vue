@@ -2,7 +2,7 @@
   <!-- TODO We could move the list into a component since we are reusing the same code for both lists. -->
   <div>
     <div>
-      <h3>白名单方法</h3>
+      <h3>交易对筛选方式</h3>
 
       <div v-if="botStore.activeBot.pairlistMethods.length" class="list">
         <b-list-group v-for="(method, key) in botStore.activeBot.pairlistMethods" :key="key">
