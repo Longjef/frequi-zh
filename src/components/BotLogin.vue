@@ -1,17 +1,17 @@
 <template>
   <div>
     <form ref="formRef" novalidate @submit.stop.prevent="handleSubmit" @reset="handleReset">
-      <b-form-group label="Bot Name" label-for="name-input">
+      <b-form-group label="机器人名称" label-for="name-input">
         <b-form-input
           id="name-input"
           v-model="auth.botName"
-          placeholder="Bot Name"
+          placeholder="机器人名称"
           @keydown.enter="handleOk"
         ></b-form-input>
       </b-form-group>
       <b-form-group
         :state="urlState"
-        label="API Url"
+        label="后端接口"
         label-for="url-input"
         invalid-feedback="API Url required"
       >
@@ -26,7 +26,7 @@
       </b-form-group>
       <b-form-group
         :state="nameState"
-        label="Username"
+        label="用户"
         label-for="username-input"
         invalid-feedback="Name and Password are required."
       >
@@ -34,13 +34,13 @@
           id="username-input"
           v-model="auth.username"
           required
-          placeholder="Freqtrader"
+          placeholder=""
           :state="nameState === '' ? null : nameState"
           @keydown.enter="handleOk"
         ></b-form-input>
       </b-form-group>
       <b-form-group
-        label="Password"
+        label="密码"
         label-for="password-input"
         invalid-feedback="Invalid Password"
         :state="pwdState"
@@ -67,8 +67,8 @@
         </b-alert>
       </div>
       <div v-if="inModal === false" class="float-end">
-        <b-button class="me-2" type="reset" variant="danger">Reset</b-button>
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button class="me-2" type="reset" variant="danger">重置</b-button>
+        <b-button type="submit" variant="primary">提交</b-button>
       </div>
     </form>
   </div>

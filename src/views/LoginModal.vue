@@ -6,7 +6,7 @@
     <b-modal
       id="modal-prevent-closing"
       v-model="loginViewOpen"
-      title="Login to your bot"
+      title="登录机器人后端"
       @ok="handleOk"
     >
       <login

@@ -4,7 +4,7 @@ describe('Login', () => {
     cy.get('button').should('contain', 'Login');
     cy.get('li').should('contain', 'No bot selected');
     cy.get('button').contains('Login').click();
-    cy.get('.modal-title').contains('Login to your bot');
+    cy.get('.modal-title').contains('登录机器人后端');
     // Test prefilled URL
     cy.get('input[id=url-input]').should('have.value', 'http://localhost:3000');
     cy.get('#name-input').should('exist');
@@ -18,7 +18,7 @@ describe('Login', () => {
     cy.visit('/login');
     cy.get('button').should('contain', 'Login');
     cy.get('li').should('contain', 'No bot selected');
-    cy.get('.card-header').contains('Freqtrade bot Login');
+    cy.get('.card-header').contains('登录机器人后端');
     // Test prefilled URL
     cy.get('input[id=url-input]').should('have.value', 'http://localhost:3000');
     cy.get('input[id=name-input]').should('exist');
@@ -37,7 +37,7 @@ describe('Login', () => {
 
   it('Test Login', () => {
     cy.visit('/login');
-    cy.get('.card-header').contains('Freqtrade bot Login');
+    cy.get('.card-header').contains('登录机器人后端');
     cy.get('input[id=name-input]').type('TestBot');
     cy.get('input[id=username-input]').type('Freqtrader');
     cy.get('input[id=password-input]').type('SuperDuperBot');
@@ -76,7 +76,7 @@ describe('Login', () => {
       expect(loc.pathname).to.eq('/');
       expect(loc.search).to.eq('');
     });
-    cy.get('button').should('contain', 'Add new bot');
+    cy.get('button').should('contain', '添加新的机器人');
     cy.get('span').should('contain', 'TestBot');
     // Check API calls have been made.
     cy.wait('@RandomAPICall');
@@ -92,7 +92,7 @@ describe('Login', () => {
 
   it('Test Login failed - wrong api url', () => {
     cy.visit('/login');
-    cy.get('.card-header').contains('Freqtrade bot Login');
+    cy.get('.card-header').contains('登录机器人后端');
     cy.get('input[id=name-input]').type('TestBot');
     cy.get('input[id=username-input]').type('Freqtrader');
     cy.get('input[id=password-input]').type('SuperDuperBot');
@@ -121,7 +121,7 @@ describe('Login', () => {
 
   it('Test Login failed - wrong password url', () => {
     cy.visit('/login');
-    cy.get('.card-header').contains('Freqtrade bot Login');
+    cy.get('.card-header').contains('登录机器人后端');
     cy.get('input[id=name-input]').type('TestBot');
     cy.get('input[id=username-input]').type('Freqtrader');
     cy.get('input[id=password-input]').type('SuperDuperBot');

@@ -4,7 +4,7 @@
       v-model="newName"
       size="sm"
       class="w-100"
-      placeholder="Bot name"
+      placeholder="机器人名称"
       style="border-style: solid; border-width: 1px"
       autofocus
     />
