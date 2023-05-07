@@ -16,7 +16,7 @@
       title="Forceexit limit"
       @click="$emit('forceExit', trade, 'limit')"
     >
-      <ForceSellIcon :size="16" title="Forceexit limit" class="me-1" />强制退出限制
+      <ForceSellIcon :size="16" title="Forceexit limit" class="me-1" />强制限价平仓
     </b-button>
     <b-button
       v-if="botApiVersion > 1.1"
@@ -25,7 +25,7 @@
       title="Forceexit market"
       @click="$emit('forceExit', trade, 'market')"
     >
-      <ForceSellIcon :size="16" title="Forceexit market" class="me-1" />强制退出市场
+      <ForceSellIcon :size="16" title="Forceexit market" class="me-1" />强制部分平仓
     </b-button>
     <b-button
       v-if="botApiVersion > 2.16"
@@ -34,7 +34,7 @@
       title="Forceexit partial"
       @click="$emit('forceExitPartial', trade)"
     >
-      <ForceSellPartialIcon :size="16" title="Forceexit partial" class="me-1" />强制退出部分
+      <ForceSellPartialIcon :size="16" title="Forceexit partial" class="me-1" />强制部分平仓
     </b-button>
     <b-button
       v-if="botApiVersion >= 2.24 && trade.open_order_id"

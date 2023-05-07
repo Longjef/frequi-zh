@@ -86,7 +86,7 @@
       />
     </div>
     <force-exit-form v-if="activeTrades" v-model="forceExitVisible" :trade="feTrade" />
-    <b-modal v-model="removeTradeVisible" title="Exit trade" @ok="forceExitExecuter">
+    <b-modal v-model="removeTradeVisible" title="平仓" @ok="forceExitExecuter">
       {{ confirmExitText }}
     </b-modal>
   </div>
@@ -189,7 +189,7 @@ const feOrderType = ref<string | undefined>(undefined);
 const forceExitHandler = (item: Trade, ordertype: string | undefined = undefined) => {
   feTrade.value = item;
   confirmExitValue.value = ModalReasons.forceExit;
-  confirmExitText.value = `Really exit trade ${item.trade_id} (Pair ${item.pair}) using ${ordertype} Order?`;
+  confirmExitText.value = `${item.trade_id}: ${item.pair} 执行 ${ordertype} 平仓`;
   removeTradeVisible.value = true;
   feOrderType.value = ordertype;
 };

@@ -40,7 +40,7 @@ const cancelOpenOrderHandler = (item: Trade) => {
     </b-button>
     <b-popover
       :target="`btn-actions-${id}`"
-      :title="`Actions for ${trade.pair}`"
+      :title="`${trade.pair}`"
       triggers="manual"
       :show="popoverOpen"
       placement="left"
