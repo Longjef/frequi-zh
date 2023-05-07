@@ -88,7 +88,7 @@
         :h="gridLayoutTradeHistory.h"
         drag-allow-from=".card-header"
       >
-        <DraggableContainer header="已完成交易">
+        <DraggableContainer header="平仓交易">
           <trade-list
             class="trade-history"
             :trades="botStore.activeBot.closedTrades"

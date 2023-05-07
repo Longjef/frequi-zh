@@ -28,8 +28,8 @@ describe('Trade', () => {
     cy.wait('@Blacklist');
     cy.wait('@Locks');
     cy.wait('@Performance');
-    cy.get('.drag-header').contains('Multi Pane').should('be.visible');
-    cy.get('.drag-header').contains('Chart').should('be.visible');
+    cy.get('.drag-header').contains('标签').should('be.visible');
+    cy.get('.drag-header').contains('图表').should('be.visible');
     cy.get('button').should('contain', 'BTC/USDT');
     cy.get('button').should('contain', 'ETH/USDT').should('be.visible');
     cy.get('button').contains('ETH/USDT').should('be.visible');
@@ -40,7 +40,7 @@ describe('Trade', () => {
       .filter(':visible')
       .should('have.length', 0);
 
-    cy.get('button[title*="Stop Trading"]').click();
+    cy.get('button[title*="停止交易"]').click();
     // Modal open
     cy.get('.modal-dialog > .modal-content > .modal-footer > .btn-secondary')
       .filter(':visible')
@@ -53,11 +53,11 @@ describe('Trade', () => {
       .should('have.length', 0);
 
     // General
-    cy.get('button[role="tab"]').contains('General').click();
+    cy.get('button[role="tab"]').contains('概况').click();
     cy.get('button').contains('ETH/USDT').should('not.be.visible');
     // 2nd segment
-    cy.get('.drag-header').contains('Open Trades').scrollIntoView().should('be.visible');
-    cy.get('.drag-header').contains('Closed Trades').scrollIntoView().should('be.visible');
+    cy.get('.drag-header').contains('持仓交易').scrollIntoView().should('be.visible');
+    cy.get('.drag-header').contains('平仓交易').scrollIntoView().should('be.visible');
     cy.get('span').contains('TRX/USDT').should('be.visible');
     cy.get('td').contains('8070.5').should('be.visible');
   });
