@@ -64,7 +64,7 @@
         <DraggableContainer>
           <template #header>
             <div class="d-flex justify-content-center">
-              持仓交易
+              持仓记录
               <InfoBox
                 class="ms-2"
                 hint="Open trades of all selected bots. Click on a trade to go to the trade page for that trade/bot."
@@ -103,7 +103,7 @@
         <DraggableContainer>
           <template #header>
             <div class="d-flex justify-content-center">
-              平仓交易
+              平仓记录
               <InfoBox
                 class="ms-2"
                 hint="Closed trades for all selected bots. Click on a trade to go to the trade page for that trade/bot."
