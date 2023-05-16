@@ -2,13 +2,15 @@
   <div>
     <div class="mb-2">
       <label class="me-auto h3">锁定</label>
-      <b-button class="float-end" size="sm" @click="botStore.activeBot.getLocks">&#x21bb;</b-button>
+      <b-button class="float-end" size="sm" @click="botStore.activeBot.getLocks">
+        <i-mdi-refresh />
+      </b-button>
     </div>
     <div>
       <b-table class="table-sm" :items="botStore.activeBot.activeLocks" :fields="tableFields">
         <template #cell(actions)="row">
           <b-button class="btn-xs ms-1" size="sm" title="删除" @click="removePairLock(row.item)">
-            <DeleteIcon :size="16" />
+            <i-mdi-delete />
           </b-button>
         </template>
       </b-table>
@@ -16,45 +18,30 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { timestampms } from '@/shared/formatters';
 import { Lock } from '@/types';
 
-import DeleteIcon from 'vue-material-design-icons/Delete.vue';
 import { showAlert } from '@/stores/alerts';
-import { defineComponent } from 'vue';
 import { useBotStore } from '@/stores/ftbotwrapper';
+import { TableField } from 'bootstrap-vue-next';
+const botStore = useBotStore();
 
-export default defineComponent({
-  name: 'PairLockList',
-  components: { DeleteIcon },
-  setup() {
-    const botStore = useBotStore();
+const tableFields: TableField[] = [
+  { key: 'pair', label: '交易对' },
+  { key: 'lock_end_timestamp', label: '直到', formatter: (value) => timestampms(value as number) },
+  { key: 'reason', label: '原因' },
+  { key: 'actions', label: '操作' },
+];
 
-    const tableFields = [
-      { key: 'pair', label: '交易对' },
-      { key: 'lock_end_timestamp', label: '直到', formatter: 'timestampms' },
-      { key: 'reason', label: '原因' },
-      { key: 'actions', label: '操作' },
-    ];
-
-    const removePairLock = (item: Lock) => {
-      console.log(item);
-      if (item.id !== undefined) {
-        botStore.activeBot.deleteLock(item.id);
-      } else {
-        showAlert('This Freqtrade version does not support deleting locks.');
-      }
-    };
-
-    return {
-      timestampms,
-      botStore,
-      tableFields,
-      removePairLock,
-    };
-  },
-});
+const removePairLock = (item: Lock) => {
+  console.log(item);
+  if (item.id !== undefined) {
+    botStore.activeBot.deleteLock(item.id);
+  } else {
+    showAlert('This Freqtrade version does not support deleting locks.');
+  }
+};
 </script>
 
 <style scoped></style>

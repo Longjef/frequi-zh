@@ -137,7 +137,7 @@ export const useBotStore = defineStore('ftbot-wrapper', {
       });
 
       const dailyReturn: DailyReturnValue = {
-        stake_currency: 'USD',
+        stake_currency: 'USDT',
         fiat_display_currency: 'USD',
         data: Object.values(resp).sort((a, b) => (a.date > b.date ? 1 : -1)),
       };
@@ -157,10 +157,10 @@ export const useBotStore = defineStore('ftbot-wrapper', {
       if (Object.keys(this.availableBots).includes(bot.botId)) {
         // throw 'Bot already present';
         // TODO: handle error!
-        console.log('机器人已存在');
+        console.log('Bot already present');
         return;
       }
-      console.log('添加机器人', bot);
+      console.log('add bot', bot);
       const botStore = createBotSubStore(bot.botId, bot.botName);
       botStore.botAdded();
       this.botStores[bot.botId] = botStore;
@@ -171,7 +171,7 @@ export const useBotStore = defineStore('ftbot-wrapper', {
     updateBot(botId: string, bot: Partial<BotDescriptor>) {
       if (!Object.keys(this.availableBots).includes(botId)) {
         // TODO: handle error!
-        console.error('机器人不存在');
+        console.error('Bot not found');
         return;
       }
       this.botStores[botId].updateBot(bot);
@@ -234,7 +234,7 @@ export const useBotStore = defineStore('ftbot-wrapper', {
         // Ensure all bots status is correct.
         await this.pingAll();
 
-        const botStoreUpdates: Promise<any>[] = [];
+        const botStoreUpdates: Promise<BotState>[] = [];
         this.allBotStores.forEach((bot) => {
           if (bot.isBotOnline && !bot.botStatusAvailable) {
             botStoreUpdates.push(bot.getState());
@@ -283,7 +283,7 @@ export const useBotStore = defineStore('ftbot-wrapper', {
     },
     async pingAll() {
       await Promise.all(
-        Object.entries(this.botStores).map(async ([_, v]) => {
+        Object.values(this.botStores).map(async (v) => {
           try {
             await v.fetchPing();
           } catch {
@@ -293,7 +293,7 @@ export const useBotStore = defineStore('ftbot-wrapper', {
       );
     },
     allGetState() {
-      Object.entries(this.botStores).map(async ([_, v]) => {
+      Object.values(this.botStores).map(async (v) => {
         try {
           await v.getState();
         } catch {

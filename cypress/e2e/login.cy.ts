@@ -114,7 +114,7 @@ describe('Login', () => {
       },
     ).as('login');
     cy.get('button[type=submit]').click();
-    cy.get('div').should('contain', '登录错误');
+    cy.get('div').should('contain', '请检查');
 
     cy.get('div').should('contain', 'API Url required');
   });

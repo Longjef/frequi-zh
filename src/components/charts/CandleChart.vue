@@ -5,23 +5,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
-import { Trade, PairHistory, PlotConfig, ChartSliderPosition } from '@/types';
-import { generateCandleSeries } from '@/shared/charts/candleChartSeries';
+import { generateAreaCandleSeries, generateCandleSeries } from '@/shared/charts/candleChartSeries';
 import heikinashi from '@/shared/charts/heikinashi';
 import { getTradeEntries } from '@/shared/charts/tradeChartData';
-import ECharts from 'vue-echarts';
+import {
+  ChartSliderPosition,
+  ChartType,
+  IndicatorConfig,
+  PairHistory,
+  PlotConfig,
+  Trade,
+} from '@/types';
 import { format } from 'date-fns-tz';
+import { computed, onMounted, ref, watch } from 'vue';
+import ECharts from 'vue-echarts';
 
-import { use } from 'echarts/core';
+import { calculateDiff, getDiffColumnsFromPlotConfig } from '@/shared/charts/areaPlotDataset';
+import { dataZoomPartial } from '@/shared/charts/chartZoom';
 import { EChartsOption, ScatterSeriesOption } from 'echarts';
-import { CanvasRenderer } from 'echarts/renderers';
-import { CandlestickChart, LineChart, BarChart, ScatterChart } from 'echarts/charts';
+import { BarChart, CandlestickChart, LineChart, ScatterChart } from 'echarts/charts';
 import {
   AxisPointerComponent,
   CalendarComponent,
-  DatasetComponent,
   DataZoomComponent,
+  DatasetComponent,
   GridComponent,
   LegendComponent,
   TimelineComponent,
@@ -31,7 +38,8 @@ import {
   VisualMapComponent,
   VisualMapPiecewiseComponent,
 } from 'echarts/components';
-import { dataZoomPartial } from '@/shared/charts/chartZoom';
+import { use } from 'echarts/core';
+import { CanvasRenderer } from 'echarts/renderers';
 
 use([
   AxisPointerComponent,
@@ -46,7 +54,6 @@ use([
   TooltipComponent,
   VisualMapComponent,
   VisualMapPiecewiseComponent,
-
   CandlestickChart,
   BarChart,
   LineChart,
@@ -111,6 +118,10 @@ const chartTitle = computed(() => {
   return `${strategy.value} - ${pair.value} - ${timeframe.value}`;
 });
 
+const diffCols = computed(() => {
+  return getDiffColumnsFromPlotConfig(props.plotConfig);
+});
+
 function updateChart(initial = false) {
   if (!hasData.value) {
     return;
@@ -158,9 +169,14 @@ function updateChart(initial = false) {
       });
     }
   }
-  const dataset = props.heikinAshi
+  let dataset = props.heikinAshi
     ? heikinashi(columns, props.dataset.data)
     : props.dataset.data.slice();
+
+  diffCols.value.forEach(([colFrom, colTo]) => {
+    // Enhance dataset with diff columns for area plots
+    dataset = calculateDiff(columns, dataset, colFrom, colTo);
+  });
   // Add new rows to end to allow slight "scroll past"
   const newArray = Array(dataset.length > 0 ? dataset[dataset.length - 2].length : 0);
   newArray[colDate] = dataset[dataset.length - 1][colDate] + props.dataset.timeframe_ms * 3;
@@ -313,12 +329,27 @@ function updateChart(initial = false) {
   if ('main_plot' in props.plotConfig) {
     Object.entries(props.plotConfig.main_plot).forEach(([key, value]) => {
       const col = columns.findIndex((el) => el === key);
-      if (col > 1) {
+      if (col > 0) {
         if (!Array.isArray(chartOptions.value?.legend) && chartOptions.value?.legend?.data) {
           chartOptions.value.legend.data.push(key);
         }
         if (Array.isArray(chartOptions.value?.series)) {
           chartOptions.value?.series.push(generateCandleSeries(colDate, col, key, value));
+
+          if (value.fill_to) {
+            // Assign
+            const fillColKey = `${key}-${value.fill_to}`;
+            const fillCol = columns.findIndex((el) => el === fillColKey);
+            const fillValue: IndicatorConfig = {
+              color: value.color,
+              type: ChartType.line,
+            };
+            const areaSeries = generateAreaCandleSeries(colDate, fillCol, key, fillValue, 0);
+
+            chartOptions.value.series[chartOptions.value.series.length - 1]['stack'] = key;
+            chartOptions.value.series.push(areaSeries);
+          }
+          chartOptions.value?.series.splice(chartOptions.value?.series.length - 1, 0);
         }
       } else {
         console.log(`element ${key} for main plot not found in columns.`);
@@ -331,6 +362,7 @@ function updateChart(initial = false) {
     let plotIndex = 2;
     Object.entries(props.plotConfig.subplots).forEach(([key, value]) => {
       // define yaxis
+
       // Subplots are added from bottom to top - only the "bottom-most" plot stays at the bottom.
       // const currGridIdx = totalSubplots - plotIndex > 1 ? totalSubplots - plotIndex : plotIndex;
       const currGridIdx = plotIndex;
@@ -385,6 +417,26 @@ function updateChart(initial = false) {
           }
           if (chartOptions.value.series && Array.isArray(chartOptions.value.series)) {
             chartOptions.value.series.push(generateCandleSeries(colDate, col, sk, sv, plotIndex));
+            if (sv.fill_to) {
+              // Assign
+              const fillColKey = `${sk}-${sv.fill_to}`;
+              const fillCol = columns.findIndex((el) => el === fillColKey);
+              const fillValue: IndicatorConfig = {
+                color: sv.color,
+                type: ChartType.line,
+              };
+              const areaSeries = generateAreaCandleSeries(
+                colDate,
+                fillCol,
+                sk,
+                fillValue,
+                plotIndex,
+              );
+
+              chartOptions.value.series[chartOptions.value.series.length - 1]['stack'] = sk;
+              chartOptions.value.series.push(areaSeries);
+            }
+            chartOptions.value?.series.splice(chartOptions.value?.series.length - 1, 0);
           }
         } else {
           console.log(`element ${sk} was not found in the columns.`);
@@ -669,7 +721,6 @@ watch(
   width: 100%;
   height: 100%;
 }
-
 .echarts {
   width: 100%;
   min-height: 200px;

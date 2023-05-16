@@ -75,7 +75,7 @@ const tableItems = computed<TableItem[]>(() => {
   const val: ComparisonTableItems[] = [];
   const summary: ComparisonTableItems = {
     botId: undefined,
-    botName: '统计',
+    botName: '合',
     profitClosed: 0,
     profitClosedRatio: undefined,
     profitOpen: 0,

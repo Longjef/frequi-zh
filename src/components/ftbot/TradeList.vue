@@ -167,7 +167,7 @@ const tableFields: TableField[] = [
   },
   {
     key: 'profit',
-    label: props.activeTrades ? '当前收益率 %' : '收益率 %',
+    label: props.activeTrades ? '实时收益率' : '收益率',
 
     formatter: (value: unknown, key?: string, item?: unknown) => {
       if (!item) {

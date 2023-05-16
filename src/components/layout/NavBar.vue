@@ -65,18 +65,18 @@
               <template #button-content>
                 <b-avatar size="2em" button>📈</b-avatar>
               </template>
-              <span class="ps-3">V: {{ settingsStore.uiVersion }}</span>
-              <router-link class="dropdown-item" to="/settings">Settings</router-link>
+              <span class="ps-3">版本: {{ settingsStore.uiVersion }}</span>
+              <router-link class="dropdown-item" to="/settings">设置</router-link>
               <div class="ps-3">
-                <b-form-checkbox v-model="layoutStore.layoutLocked">Lock layout</b-form-checkbox>
+                <b-form-checkbox v-model="layoutStore.layoutLocked">锁定视图</b-form-checkbox>
               </div>
-              <b-dropdown-item @click="resetDynamicLayout">Reset Layout</b-dropdown-item>
+              <b-dropdown-item @click="resetDynamicLayout">重置视图</b-dropdown-item>
               <router-link
                 v-if="botStore.botCount === 1"
                 class="dropdown-item"
                 to="/"
                 @click="clickLogout()"
-                >Sign Out</router-link
+                >退出</router-link
               >
             </b-nav-item-dropdown>
             <div class="d-block d-sm-none">

@@ -22,6 +22,13 @@
           :state="urlState === '' ? null : urlState"
           @keydown.enter="handleOk"
         ></b-form-input>
+        <b-alert
+          v-if="urlDuplicate"
+          class="mt-2 p-1 alert-wrap"
+          :model-value="true"
+          variant="warning"
+          >该接口已添加</b-alert
+        >
       </b-form-group>
       <b-form-group
         :state="nameState"
@@ -33,7 +40,6 @@
           id="username-input"
           v-model="auth.username"
           required
-          placeholder=""
           :state="nameState === '' ? null : nameState"
           @keydown.enter="handleOk"
         ></b-form-input>
@@ -58,9 +64,8 @@
           {{ errorMessage }}
           <br />
           <span v-if="errorMessageCORS"
-            >请检查 CORS 配置<a href="https://www.freqtrade.io/en/latest/rest-api/#cors"
-              >CORS 配置文档</a
-            ></span
+            >请查阅
+            <a href="https://www.freqtrade.io/en/latest/rest-api/#cors">CORS 配置文档</a></span
           >
         </b-alert>
       </div>
@@ -76,7 +81,7 @@
 import { useUserService } from '@/shared/userService';
 import { AuthPayload, AuthStorageWithBotId } from '@/types';
 
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useBotStore } from '@/stores/ftbotwrapper';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
@@ -111,10 +116,16 @@ const emitLoginResult = (value: boolean) => {
   emit('loginResult', value);
 };
 
+const urlDuplicate = computed<boolean>(() => {
+  const bots = Object.values(botStore.availableBots).find((bot) => bot.botUrl === auth.value.url);
+  return bots !== undefined;
+});
+
 const checkFormValidity = () => {
   const valid = formRef.value?.checkValidity();
   nameState.value = valid || auth.value.username !== '';
   pwdState.value = valid || auth.value.password !== '';
+  urlState.value = valid || auth.value.url !== '';
   return valid;
 };
 
@@ -188,8 +199,7 @@ const handleSubmit = async () => {
       errorMessage.value = 'Connected to bot, however Login failed, Username or Password wrong.';
     } else {
       urlState.value = false;
-      errorMessage.value = `登录错误
-请检查 ${auth.value.url}/api/v1/ping 是否可达！`;
+      errorMessage.value = `请检查 ${auth.value.url}/api/v1/ping`;
       if (auth.value.url !== window.location.origin) {
         errorMessageCORS.value = true;
       }

@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <b-card header="添加后端">
-      <Login ref="loginForm" />
+      <BotLogin ref="loginForm" />
     </b-card>
   </div>
 </template>
 
 <script setup lang="ts">
-import Login from '@/components/BotLogin.vue';
+import BotLogin from '@/components/BotLogin.vue';
 </script>
 
 <style scoped>

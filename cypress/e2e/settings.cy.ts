@@ -15,7 +15,7 @@ describe('Settings', () => {
 
     cy.get('[id=avatar-drop]').should('be.visible').parent().click();
     cy.get('.dropdown-menu > [href="/settings"]').click();
-    cy.contains('FreqUI Settings');
+    cy.contains('设置');
 
     // cy.get('[id=settings-lock-layout]').should('be.visible');
     cy.get('select:first')
