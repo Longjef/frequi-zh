@@ -34,7 +34,7 @@
       title="Forceexit partial"
       @click="$emit('forceExitPartial', trade)"
     >
-      <i-mdi-close-box-multiple class="me-1" />强制部分平仓
+      <i-mdi-close-box-multiple class="me-1" />强制部分
     </b-button>
     <b-button
       v-if="botApiVersion >= 2.24 && trade.open_order_id"
@@ -45,7 +45,15 @@
     >
       <i-mdi-cancel class="me-1" />取消委托
     </b-button>
-
+    <b-button
+      v-if="botApiVersion >= 2.28"
+      class="btn-xs text-start mt-1"
+      size="sm"
+      title="Reload"
+      @click="$emit('reloadTrade', trade)"
+    >
+      <i-mdi-reload-alert class="me-1" />重载交易
+    </b-button>
     <b-button
       class="btn-xs text-start mt-1"
       size="sm"
@@ -71,7 +79,7 @@ defineProps({
     required: true,
   },
 });
-defineEmits(['forceExit', 'forceExitPartial', 'cancelOpenOrder', 'deleteTrade']);
+defineEmits(['forceExit', 'forceExitPartial', 'cancelOpenOrder', 'reloadTrade', 'deleteTrade']);
 </script>
 
 <style scoped lang="scss"></style>
