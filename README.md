@@ -6,5 +6,6 @@ docker compose run --rm freqtrade backtesting --config user_data/backtest.json -
 docker compose run --rm freqtrade new-strategy --strategy my_strategy --template advanced
 
 docker compose run --rm freqtrade create-userdir --userdir user_data
+
 docker compose run --rm freqtrade new-config --config user_data/config.json
 ```

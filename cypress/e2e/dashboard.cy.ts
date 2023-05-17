@@ -36,7 +36,7 @@ describe('Dashboard', () => {
 
     // Assert Botcomparison content
     cy.get('span').contains('TestBot').should('be.visible');
-    cy.get('span').contains('统计').should('be.visible');
+    cy.get('span').contains('合').should('be.visible');
     // Scroll lower
     cy.get('.drag-header').contains('成交记录').scrollIntoView();
     cy.get('.drag-header').contains('成交记录').should('be.visible');

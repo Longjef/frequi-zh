@@ -34,7 +34,7 @@
       title="Forceexit partial"
       @click="$emit('forceExitPartial', trade)"
     >
-      <i-mdi-close-box-multiple class="me-1" />强制部分
+      <i-mdi-close-box-multiple class="me-1" />强制部分平仓
     </b-button>
     <b-button
       v-if="botApiVersion >= 2.24 && trade.open_order_id"
