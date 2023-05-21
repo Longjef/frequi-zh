@@ -1,5 +1,5 @@
 <template>
-  <e-charts v-if="trades" :option="chartOptions" autoresize :theme="settingsStore.chartTheme" />
+  <e-charts v-if="trades" ref="chart" autoresize manual-update :theme="settingsStore.chartTheme" />
 </template>
 
 <script setup lang="ts">
@@ -17,15 +17,27 @@ import {
   TooltipComponent,
 } from 'echarts/components';
 
-import { ClosedTrade, CumProfitData, CumProfitDataPerDate } from '@/types';
-import { computed, ComputedRef } from 'vue';
+import {
+  ClosedTrade,
+  CumProfitData,
+  CumProfitDataPerDate,
+  CumProfitChartData,
+  Trade,
+} from '@/types';
+import { computed } from 'vue';
 import { useSettingsStore } from '@/stores/settings';
 import { dataZoomPartial } from '@/shared/charts/chartZoom';
+import { ref } from 'vue';
+import { onMounted } from 'vue';
+import { watch } from 'vue';
+import { watchThrottled } from '@vueuse/core';
 
 use([
   BarChart,
   LineChart,
+
   CanvasRenderer,
+
   DatasetComponent,
   DataZoomComponent,
   LegendComponent,
@@ -34,10 +46,11 @@ use([
 ]);
 
 // Define Column labels here to avoid typos
-const CHART_PROFIT = 'USDT';
+const CHART_PROFIT = 'Profit';
 
 const props = defineProps({
   trades: { required: true, type: Array as () => ClosedTrade[] },
+  openTrades: { required: true, type: Array as () => Trade[] },
   showTitle: { default: true, type: Boolean },
   profitColumn: { default: 'profit_abs', type: String },
 });
@@ -45,7 +58,13 @@ const settingsStore = useSettingsStore();
 // const botList = ref<string[]>([]);
 // const cumulativeData = ref<{ date: number; profit: any }[]>([]);
 
-const cumulativeData: ComputedRef<{ date: number; profit: number }[]> = computed(() => {
+const chart = ref<typeof ECharts>();
+
+const openProfit = computed<number>(() => {
+  return props.openTrades.reduce((a, v) => a + v[props.profitColumn], 0);
+});
+
+const cumulativeData = computed<CumProfitChartData[]>(() => {
   const res: CumProfitData[] = [];
   const resD: CumProfitDataPerDate = {};
   const closedTrades = props.trades
@@ -73,29 +92,111 @@ const cumulativeData: ComputedRef<{ date: number; profit: number }[]> = computed
       res.push({ date: trade.close_timestamp, profit, [trade.botId]: profit });
     }
   }
-  // console.log(resD);
 
-  return Object.entries(resD).map(([k, v]) => {
-    const obj = { date: parseInt(k, 10), profit: v.profit };
-    // TODO: The below could allow "lines" per bot"
-    // this.botList.forEach((botId) => {
-    // obj[botId] = v[botId];
-    // });
-    return obj;
-  });
+  const valueArray: CumProfitChartData[] = Object.entries(resD).map(
+    ([k, v]: [string, CumProfitData]) => {
+      const obj = { date: parseInt(k, 10), profit: v.profit };
+      // TODO: The below could allow "lines" per bot"
+      // this.botList.forEach((botId) => {
+      // obj[botId] = v[botId];
+      // });
+      return obj;
+    },
+  );
+
+  if (props.openTrades.length > 0 && valueArray.length > 0) {
+    const lastPoint = valueArray[valueArray.length - 1];
+    if (lastPoint) {
+      const resultWitHOpen = (lastPoint.profit ?? 0) + openProfit.value;
+      valueArray.push({ date: lastPoint.date, currentProfit: lastPoint.profit });
+      // Add one day to date to ensure it's showing properly
+      const tomorrow = Date.now() + 24 * 60 * 60 * 1000;
+      valueArray.push({ date: tomorrow, currentProfit: resultWitHOpen });
+    }
+  }
+  return valueArray;
 });
 
-const chartOptions = computed((): EChartsOption => {
+function updateChart(initial = false) {
+  const chartOptionsLoc: EChartsOption = {
+    dataset: {
+      dimensions: ['date', 'profit', 'currentProfit'],
+      source: cumulativeData.value,
+    },
+
+    series: [
+      {
+        // Keep  current-profit before profit, so the starting symbol is behind
+        type: 'line',
+        name: 'currentProfit',
+
+        animation: initial,
+        tooltip: {
+          show: false,
+        },
+        lineStyle: {
+          color: openProfit.value > 0 ? 'green' : 'red',
+          type: 'dotted',
+        },
+        itemStyle: {
+          color: openProfit.value > 0 ? 'green' : 'red',
+        },
+        encode: {
+          x: 'date',
+          y: 'currentProfit',
+        },
+      },
+      {
+        type: 'line',
+        name: CHART_PROFIT,
+        animation: initial,
+        step: 'end',
+        lineStyle: {
+          color: settingsStore.chartTheme === 'dark' ? '#c2c2c2' : 'black',
+        },
+        itemStyle: {
+          color: settingsStore.chartTheme === 'dark' ? '#c2c2c2' : 'black',
+        },
+        encode: {
+          x: 'date',
+          y: 'profit',
+        },
+        // symbol: 'none',
+      },
+    ],
+  };
+
+  // TODO: maybe have profit lines per bot?
+  // this.botList.forEach((botId: string) => {
+  //   console.log('bot', botId);
+  //   chartOptionsLoc.series.push({
+  //     type: 'line',
+  //     name: botId,
+  //     animation: true,
+  //     step: 'end',
+  //     lineStyle: {
+  //       color: settingsStore.chartTheme === 'dark' ? '#c2c2c2' : 'black',
+  //     },
+  //     itemStylesettingsStore.chartTheme === 'dark' ? '#c2c2c2' : 'black',
+  //     },
+  //     // symbol: 'none',
+  //   });
+  // });
+  chart.value?.setOption(chartOptionsLoc, {
+    replaceMerge: ['series', 'dataset'],
+    noMerge: !initial,
+  });
+}
+
+function initializeChart() {
+  chart.value?.setOption({}, { noMerge: true });
   const chartOptionsLoc: EChartsOption = {
     title: {
       text: 'Cumulative Profit',
       show: props.showTitle,
     },
     backgroundColor: 'rgba(0, 0, 0, 0)',
-    dataset: {
-      dimensions: ['date', 'profit'],
-      source: cumulativeData.value,
-    },
+
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -144,40 +245,29 @@ const chartOptions = computed((): EChartsOption => {
         ...dataZoomPartial,
       },
     ],
-    series: [
-      {
-        type: 'line',
-        name: CHART_PROFIT,
-        animation: true,
-        step: 'end',
-        lineStyle: {
-          color: settingsStore.chartTheme === 'dark' ? '#c2c2c2' : 'black',
-        },
-        itemStyle: {
-          color: settingsStore.chartTheme === 'dark' ? '#c2c2c2' : 'black',
-        },
-        // symbol: 'none',
-      },
-    ],
   };
-  // TODO: maybe have profit lines per bot?
-  // this.botList.forEach((botId: string) => {
-  //   console.log('bot', botId);
-  //   chartOptionsLoc.series.push({
-  //     type: 'line',
-  //     name: botId,
-  //     animation: true,
-  //     step: 'end',
-  //     lineStyle: {
-  //       color: settingsStore.chartTheme === 'dark' ? '#c2c2c2' : 'black',
-  //     },
-  //     itemStylesettingsStore.chartTheme === 'dark' ? '#c2c2c2' : 'black',
-  //     },
-  //     // symbol: 'none',
-  //   });
-  // });
-  return chartOptionsLoc;
+  chart.value?.setOption(chartOptionsLoc, { noMerge: true });
+  updateChart(true);
+}
+
+onMounted(() => {
+  initializeChart();
 });
+
+watchThrottled(
+  () => props.openTrades,
+  () => {
+    updateChart();
+  },
+  { throttle: 60 * 1000 },
+);
+watchThrottled(
+  () => props.trades,
+  () => {
+    updateChart();
+  },
+  { throttle: 60 * 1000 },
+);
 </script>
 
 <style scoped>

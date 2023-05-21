@@ -4,9 +4,10 @@
       <e-charts v-if="trades" :option="chartOptions" autoresize :theme="settingsStore.chartTheme" />
     </div>
     <b-form-group
-      class="w-25 order-1"
+      class="order-1"
       :class="showTitle ? 'ms-5 ps-5' : 'position-absolute'"
-      label="鍖洪棿"
+      label="区间"
+      style="width: 33%; min-width: 12rem"
       label-for="input-bins"
       label-cols="6"
       content-cols="6"
@@ -16,6 +17,7 @@
         id="input-bins"
         v-model="settingsStore.profitDistributionBins"
         size="sm"
+        class="mt-1"
         :options="binOptions"
       ></b-form-select>
     </b-form-group>
@@ -44,7 +46,9 @@ import { useSettingsStore } from '@/stores/settings';
 
 use([
   BarChart,
+
   CanvasRenderer,
+
   DatasetComponent,
   DataZoomComponent,
   LegendComponent,
@@ -53,7 +57,7 @@ use([
 ]);
 
 // Define Column labels here to avoid typos
-const CHART_PROFIT = '浜ゆ槗娆℃暟';
+const CHART_PROFIT = '交易次数';
 
 const props = defineProps({
   trades: { required: true, type: Array as () => ClosedTrade[] },

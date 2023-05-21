@@ -27,7 +27,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer :header="`Êó•Êî∂Áõä ${botStore.botCount > 1 ? 'ÂêàËÆ°' : ''}`">
+        <DraggableContainer :header="`»’ ’“Ê ${botStore.botCount > 1 ? '∫œº∆' : ''}`">
           <DailyChart
             v-if="botStore.allDailyStatsSelectedBots"
             :daily-stats="botStore.allDailyStatsSelectedBots"
@@ -46,7 +46,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer header="Êú∫Âô®‰∫∫ÂØπÊØî">
+        <DraggableContainer header="ª˙∆˜»À∂‘±»">
           <bot-comparison-list />
         </DraggableContainer>
       </grid-item>
@@ -64,7 +64,7 @@
         <DraggableContainer>
           <template #header>
             <div class="d-flex justify-content-center">
-              ÂΩìÂâçÂßîÊâò
+              µ±«∞ŒØÕ–
               <InfoBox
                 class="ms-2"
                 hint="Open trades of all selected bots. Click on a trade to go to the trade page for that trade/bot."
@@ -85,8 +85,12 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer header="Á¥ØËÆ°Êî∂Áõä">
-          <CumProfitChart :trades="botStore.allTradesSelectedBots" :show-title="false" />
+        <DraggableContainer header="¿€º∆ ’“Ê">
+          <CumProfitChart
+            :trades="botStore.allTradesSelectedBots"
+            :open-trades="botStore.allOpenTradesSelectedBots"
+            :show-title="false"
+          />
         </DraggableContainer>
       </grid-item>
       <grid-item
@@ -103,7 +107,7 @@
         <DraggableContainer>
           <template #header>
             <div class="d-flex justify-content-center">
-              Êàê‰∫§ËÆ∞ÂΩï
+              ≥…Ωªº«¬º
               <InfoBox
                 class="ms-2"
                 hint="Closed trades for all selected bots. Click on a trade to go to the trade page for that trade/bot."
@@ -129,7 +133,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer header="Êî∂ÁõäÂàÜÂ∏É">
+        <DraggableContainer header=" ’“Ê∑÷≤º">
           <ProfitDistributionChart :trades="botStore.allTradesSelectedBots" :show-title="false" />
         </DraggableContainer>
       </grid-item>
@@ -144,7 +148,7 @@
         :min-h="4"
         drag-allow-from=".drag-header"
       >
-        <DraggableContainer header="Êó•Âøó">
+        <DraggableContainer header="»’÷æ">
           <TradesLogChart :trades="botStore.allTradesSelectedBots" :show-title="false" />
         </DraggableContainer>
       </grid-item>
